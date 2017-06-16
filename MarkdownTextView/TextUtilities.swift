@@ -8,7 +8,7 @@
 
 import UIKit
 
-public typealias TextAttributes = [String: AnyObject]
+public typealias TextAttributes = [NSAttributedStringKey : AnyObject]
 
 internal func fontWithTraits(_ traits: UIFontDescriptorSymbolicTraits, font: UIFont) -> UIFont {
     let combinedTraits = UIFontDescriptorSymbolicTraits(rawValue: font.fontDescriptor.symbolicTraits.rawValue | (traits.rawValue & 0xFFFF))

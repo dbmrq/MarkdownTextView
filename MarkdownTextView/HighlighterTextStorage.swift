@@ -17,8 +17,8 @@ open class HighlighterTextStorage: NSTextStorage {
     fileprivate var highlighters = [HighlighterType]()
     
     /// Default attributes to use for styling text.
-    open var defaultAttributes: [String: AnyObject] = [
-        NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+    open var defaultAttributes: [NSAttributedStringKey: AnyObject] = [
+        NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
     ] {
         didSet { editedAll(.editedAttributes) }
     }
@@ -48,14 +48,19 @@ open class HighlighterTextStorage: NSTextStorage {
         backingStore = NSMutableAttributedString(string: "", attributes: defaultAttributes)
         super.init(coder: aDecoder)
     }
-    
+
+    required public init(itemProviderData data: Data, typeIdentifier: String) throws {
+        backingStore = NSMutableAttributedString(string: "", attributes: defaultAttributes)
+        super.init()
+    }
+
     // MARK: NSTextStorage
     
     open override var string: String {
         return backingStore.string
     }
     
-    open override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [String : Any] {
+    open override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [NSAttributedStringKey : Any] {
         return backingStore.attributes(at: location, effectiveRange: range)
     }
     
@@ -64,7 +69,7 @@ open class HighlighterTextStorage: NSTextStorage {
         edited(.editedCharacters, range: range, changeInLength: attrString.length - range.length)
     }
     
-    open override func setAttributes(_ attrs: [String : Any]?, range: NSRange) {
+    open override func setAttributes(_ attrs: [NSAttributedStringKey : Any]?, range: NSRange) {
         backingStore.setAttributes(attrs, range: range)
         edited(.editedAttributes, range: range, changeInLength: 0)
     }

@@ -24,7 +24,7 @@ public final class LinkHighlighter: HighlighterType {
         enumerateMatches(detector, string: attributedString.string) {
             if let URL = $0.url {
                 let linkAttributes = [
-                    NSLinkAttributeName: URL
+                    NSAttributedStringKey.link: URL
                 ]
                 attributedString.addAttributes(linkAttributes, range: $0.range)
             }
