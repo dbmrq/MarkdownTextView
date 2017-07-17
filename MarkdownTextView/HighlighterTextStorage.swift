@@ -63,10 +63,10 @@ open class HighlighterTextStorage: NSTextStorage {
     open override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [NSAttributedStringKey : Any] {
         return backingStore.attributes(at: location, effectiveRange: range)
     }
-    
-    open override func replaceCharacters(in range: NSRange, with attrString: NSAttributedString) {
-        backingStore.replaceCharacters(in: range, with: attrString)
-        edited(.editedCharacters, range: range, changeInLength: attrString.length - range.length)
+
+    override open func replaceCharacters(in range: NSRange, with str: String) {
+        backingStore.replaceCharacters(in: range, with: str)
+        edited(.editedCharacters, range: range, changeInLength: (str as NSString).length - range.length)
     }
     
     open override func setAttributes(_ attrs: [NSAttributedStringKey : Any]?, range: NSRange) {

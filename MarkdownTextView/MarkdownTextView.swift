@@ -65,9 +65,33 @@ open class MarkdownTextView: UITextView, UITextViewDelegate {
     // Impl delegate to respond enter operate.
     self.delegate = self
   }
-  
+
   required public init(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
+    let textContainer = NSTextContainer()
+    let layoutManager = NSLayoutManager()
+    layoutManager.addTextContainer(textContainer)
+
+    let attributes = MarkdownAttributes()
+    let textStorage = MarkdownTextStorage(attributes: attributes)
+    do {
+        textStorage.addHighlighter(try LinkHighlighter())
+    } catch let error {
+        fatalError("Error initializing LinkHighlighter: \(error)")
+    }
+    textStorage.addHighlighter(MarkdownStrikethroughHighlighter())
+    textStorage.addHighlighter(MarkdownSuperscriptHighlighter())
+    if let codeBlockAttributes = attributes.codeBlockAttributes {
+        textStorage.addHighlighter(MarkdownFencedCodeHighlighter(attributes: codeBlockAttributes))
+    }
+
+    textStorage.addLayoutManager(layoutManager)
+
+    super.init(frame: CGRect.zero, textContainer: textContainer)
+
+    self.translatesAutoresizingMaskIntoConstraints = false
+
+    // Impl delegate to respond enter operate.
+    self.delegate = self
   }
   
   // MARK: - UITextViewDelegate
