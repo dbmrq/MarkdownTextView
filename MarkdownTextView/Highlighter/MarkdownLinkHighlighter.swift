@@ -20,7 +20,7 @@ public final class MarkdownLinkHighlighter: HighlighterType {
     public func highlightAttributedString(_ attributedString: NSMutableAttributedString) {
         let string = attributedString.string
         enumerateMatches(type(of: self).LinkRegex, string: string) {
-            let URLString = (string as NSString).substring(with: $0.rangeAt(2))
+            let URLString = (string as NSString).substring(with: $0.range(at: 2))
             let linkAttributes = [
                 NSAttributedStringKey.link: URLString
             ]

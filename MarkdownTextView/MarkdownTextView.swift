@@ -101,7 +101,8 @@ open class MarkdownTextView: UITextView, UITextViewDelegate {
   
   open func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
     if isReturn(text) {
-      var objectLine = textView.text.substring(to: textView.text.index(textView.text.startIndex, offsetBy: range.location))
+//        var objectLine = textView.text.substring(to: textView.text.index(textView.text.startIndex, offsetBy: range.location))
+        var objectLine = String(textView.text.prefix(range.location))
       
       let textSplits = objectLine.components(separatedBy: "\n")
       if textSplits.count > 0 {

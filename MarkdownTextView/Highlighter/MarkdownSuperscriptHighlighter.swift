@@ -34,7 +34,7 @@ public final class MarkdownSuperscriptHighlighter: HighlighterType {
         var level: Int = 0
         
         enumerateMatches(type(of: self).SuperscriptRegex, string: attributedString.string) {
-            level += $0.rangeAt(1).length
+            level += $0.range(at: 1).length
             let textRange = $0.range
             let attributes = attributedString.attributes(at: textRange.location, effectiveRange: nil) 
             

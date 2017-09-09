@@ -39,7 +39,7 @@ public final class MarkdownStrikethroughHighlighter: HighlighterType {
                     strikethroughAttributes[key] = value
                 }
             }
-            attributedString.addAttributes(strikethroughAttributes, range: $0.rangeAt(2))
+            attributedString.addAttributes(strikethroughAttributes, range: $0.range(at: 2))
         }
     }
 }

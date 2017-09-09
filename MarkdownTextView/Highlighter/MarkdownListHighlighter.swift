@@ -43,7 +43,7 @@ public final class MarkdownListHighlighter: HighlighterType {
                 attributedString.addAttributes(attributes, range: $0.range)
             }
             if let itemAttributes = self.itemAttributes {
-                attributedString.addAttributes(itemAttributes, range: $0.rangeAt(1))
+                attributedString.addAttributes(itemAttributes, range: $0.range(at: 1))
             }
         }
     }
